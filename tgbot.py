@@ -23,27 +23,23 @@ def start(m, res=False):
         bot.send_message(m.chat.id, "Игра в 20:30 в среду. Больше людей - меньше цена")
         bot.send_message(m.chat.id,'Пойдешь?', reply_markup=markup)
 
-# Получение сообщений от юзера
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
-    # Если юзер прислал 1, выдаем ему случайный факт
     global spis
     if message.text.strip() == '+':
         if message.from_user.username not in spis:
             answer = (f"Пользователь {message.from_user.username} записан на игру")
-            spis +=str(message.from_user.username) +"\n"
+            spis +='@'+str(message.from_user.username) +"\n"
         else:
             answer = (f'Пользователь {message.from_user.username} уже есть в списке')
 
     elif message.text.strip() == '-':
         if message.from_user.username in spis:
             answer = (f"Пользователь {message.from_user.username} вычеркнут из списка")
-            spis = spis.replace(str(message.from_user.username)+'\n', '')
+            spis = spis.replace('@'+str(message.from_user.username)+'\n', '')
         else:
             answer = (f'Пользователь {message.from_user.username} еще не записан, чтобы быть вычеркнутым из списка')
 
-
-    # Если юзер прислал 2, выдаем умную мысль
     elif message.text.strip().lower() == 'список':
         m = spis
         answer = (f"Список добровольцев: \n{m}")
@@ -52,5 +48,5 @@ def handle_text(message):
     # Отсылаем юзеру сообщение в его чат    '''", message.chat.username, '''
     if answer != '':
         bot.send_message(message.chat.id, answer)
-# Запускаем бота
+
 bot.polling(none_stop=True, interval=0)
