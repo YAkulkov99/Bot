@@ -16,9 +16,9 @@ def start(m, res=False):
         item1=types.KeyboardButton("Список")
         item2=types.KeyboardButton("+")
         item3 = types.KeyboardButton("-")
-        markup.add(item1)
-        markup.add(item2)
-        markup.add(item3)
+        markup.add(item1, item2, item3)
+        #markup.add(item2)
+        #markup.add(item3)
 
         bot.send_message(m.chat.id, "Игра в 20:30 в среду. Больше людей - меньше цена")
         bot.send_message(m.chat.id,'Пойдешь?', reply_markup=markup)
